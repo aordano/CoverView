@@ -3,22 +3,9 @@ import CoverImage from "./CoverImage";
 import ComponentToImg from "./ComponentToImg";
 import Select from "react-select";
 import RandomTheme from "./RandomTheme";
+import * as Types from "./types";
 // import resetIcon from '../assets/icons/reset.svg'
 import { ImgProvider } from "../utils/ImgContext";
-
-const defaultSettings = {
-    title: "This is a placeholder quite long, really",
-    bgColor: "#ffe9e3",
-    pattern: "",
-    download: "PNG",
-    author: "Ágata Ordano",
-    icon: { label: "react", value: "react" },
-    devIconOptions: {},
-    font: "font-Anek",
-    theme: "stylish",
-    customIcon: "",
-    platform: "hashnode",
-};
 
 const devIconsUrl =
     "https://raw.githubusercontent.com/devicons/devicon/master/devicon.json";
@@ -28,8 +15,8 @@ const devIconsUrl =
 // 	{ value: 'python', label: 'Python' },
 // ]
 
-class Editor extends React.Component {
-    state = defaultSettings;
+class Editor extends React.Component<Types.IEditorState> {
+    state = this.props.settings;
     componentDidMount() {
         console.log("Mount");
         fetch(devIconsUrl)
@@ -37,18 +24,15 @@ class Editor extends React.Component {
             .then((data) => {
                 data.push({ name: "custom" });
                 this.setState({
-                    devIconOptions: data.map((item) => ({
-                        value: item.name,
-                        label: item.name,
-                    })),
+                    devIconOptions: data,
                 });
             });
     }
     handleReset = () => {
-        this.setState(defaultSettings);
+        this.setState(this.props.settings);
     };
 
-    getRandomTheme = (theme, Pattern) => {
+    getRandomTheme: Types.TThemeGetter = (theme, Pattern) => {
         this.setState({
             bgColor: theme.bgColor,
             borderColor: theme.bdColor,
@@ -56,7 +40,13 @@ class Editor extends React.Component {
         });
     };
 
-    formatOptionLabel = ({ value, label }) => (
+    formatOptionLabel = ({
+        value,
+        label,
+    }: {
+        value: string;
+        label: string;
+    }) => (
         <div className="flex">
             <span className="mr-2">{label}</span>
             <div className="ml-auto mr-2">
@@ -74,7 +64,7 @@ class Editor extends React.Component {
                             <div className="m-2 flex flex-col">
                                 <span className="font-medium">Blog Title</span>
                                 <textarea
-                                    type="text"
+                                    //type="text"
                                     value={this.state.title}
                                     placeholder="Enter title here"
                                     className="focus:outline-none border text-gray-700 text-xl rounded p-2 h-24"
@@ -148,7 +138,14 @@ class Editor extends React.Component {
                                     onChange={(selectedOption) =>
                                         this.setState({ icon: selectedOption })
                                     }
-                                    options={this.state.devIconOptions}
+                                    options={this.state.devIconOptions.map(
+                                        (item) => {
+                                            return {
+                                                value: item.name,
+                                                label: item.name,
+                                            };
+                                        }
+                                    )}
                                     formatOptionLabel={this.formatOptionLabel}
                                     className="outline-none focus:outline-none text-xl text-gray-700"
                                 />
@@ -159,11 +156,21 @@ class Editor extends React.Component {
                                     <input
                                         type="file"
                                         className="focus:outline-none text-lg cursor-pointer bg-white rounded border"
-                                        onChange={(e) =>
+                                        onChange={(event) =>
                                             this.setState({
-                                                customIcon: URL.createObjectURL(
-                                                    e.target.files[0]
-                                                ),
+                                                customIcon: (function () {
+                                                    const target = event.target;
+                                                    const files = target.files;
+                                                    if (
+                                                        files &&
+                                                        files.length > 0
+                                                    ) {
+                                                        return URL.createObjectURL(
+                                                            files[0]
+                                                        );
+                                                    }
+                                                    return "";
+                                                })(),
                                             })
                                         }
                                     />
