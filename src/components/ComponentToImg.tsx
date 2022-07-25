@@ -14,7 +14,7 @@ const ComponentToImg = (props: { children: React.ReactNode }) => {
         <React.Fragment>
             <div ref={componentRef}>{props.children}</div>
             <button
-                className="border p-2 bg-gray-700 hover:bg-gray-800 flex items-center text-white text-xl rounded-lg m-4 px-4"
+                className="border p-2  bg-slate-800 hover:bg-indigo-900 hover:-translate-y-[1px] text-white  flex items-center text-white text-xl rounded-lg m-4 px-4"
                 onClick={() => downloadImage()}
             >
                 <svg

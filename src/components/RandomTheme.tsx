@@ -125,16 +125,19 @@ class RandomTheme extends React.Component<Types.IRandomThemeProps> {
     render() {
         return (
             <div
-                className="shuffle-btn border bg-white p-2 rounded cursor-pointer"
+                className="shuffle-btn border  bg-slate-800 hover:bg-indigo-900 text-white  hover:-translate-y-[1px] p-2 rounded cursor-pointer "
                 onClick={this.changeTheme}
             >
                 <svg
                     width="1em"
                     height="1em"
                     viewBox="0 0 16 16"
-                    className="bi bi-shuffle"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
                     fill="currentColor"
                     xmlns="http://www.w3.org/2000/svg"
+                    className="bi bi-shuffle"
                 >
                     <path
                         fillRule="evenodd"
