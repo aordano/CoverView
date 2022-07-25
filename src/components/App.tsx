@@ -1,5 +1,4 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import * as Types from "./types";
 import Editor from "./Editor";
 
@@ -40,16 +39,7 @@ const defaultSettings: Types.ISettings = {
 };
 
 const App = () => {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route
-                    path="/"
-                    element={<Editor settings={defaultSettings} />}
-                />
-            </Routes>
-        </BrowserRouter>
-    );
+    return <Editor settings={defaultSettings} />;
 };
 
 export default App;
