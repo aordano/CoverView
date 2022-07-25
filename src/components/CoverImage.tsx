@@ -14,9 +14,9 @@ const CoverImage = (props: Types.ISettings) => {
             case "basic":
                 return <BasicTheme settings={props} />;
             case "modern":
-                return <ModernTheme config={props} />;
+                return <ModernTheme settings={props} />;
             case "outline":
-                return <OutlineTheme config={props} />;
+                return <OutlineTheme settings={props} />;
 
             default:
                 return <BasicTheme settings={props} />;
