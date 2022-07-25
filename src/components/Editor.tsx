@@ -5,7 +5,6 @@ import Select from "react-select";
 import RandomTheme from "./RandomTheme";
 import * as Types from "./types";
 // import resetIcon from '../assets/icons/reset.svg'
-import { ImgProvider } from "../utils/ImgContext";
 
 const devIconsUrl =
     "https://raw.githubusercontent.com/devicons/devicon/master/devicon.json";

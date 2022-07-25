@@ -1,20 +1,13 @@
-import React, { ReactInstance, useContext } from "react";
+import React from "react";
 import { exportComponentAsPNG } from "react-component-export-image";
 import "./CoverImage.css";
-import { ImgContext } from "../utils/ImgContext";
-import unsplash from "../utils/unsplashConfig";
 
-const ComponentToImg = (props: any) => {
-    const { unsplashImage } = useContext(ImgContext);
+const ComponentToImg = (props: { children: React.ReactNode }) => {
     const componentRef = React.createRef<any>(); // TODO give a type
 
     // download image and trigger download on unsplash api
     const downloadImage = () => {
         exportComponentAsPNG(componentRef, { fileName: "cover" }); // TODO replace for the given blogpost name
-        unsplash.photos.trackDownload({
-            downloadLocation: unsplashImage.downloadLink,
-        });
-        console.log(unsplashImage.downloadLink);
     };
 
     return (
