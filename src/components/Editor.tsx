@@ -14,7 +14,7 @@ const devIconsUrl =
 // 	{ value: 'python', label: 'Python' },
 // ]
 
-class Editor extends React.Component<Types.IEditorState> {
+class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
     state = this.props.settings;
     componentDidMount() {
         console.log("Mount");
@@ -34,7 +34,7 @@ class Editor extends React.Component<Types.IEditorState> {
     getRandomTheme: Types.TThemeGetter = (theme, Pattern) => {
         this.setState({
             bgColor: theme.bgColor,
-            borderColor: theme.bdColor,
+            bdColor: theme.bdColor,
             pattern: Pattern,
         });
     };

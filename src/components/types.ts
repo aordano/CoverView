@@ -41,6 +41,11 @@ export interface IRandomThemeProps {
     onThemeChange: TThemeGetter;
 }
 
-export type IEditorState = {
+export type IEditorProps = {
     settings: ISettings;
 };
+
+export interface IComponentToImageProps {
+    fileType: string;
+    fileName: string;
+}
