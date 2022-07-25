@@ -4,12 +4,12 @@ import Editor from "./Editor";
 
 const defaultSettings: Types.ISettings = {
     title: "This is a placeholder quite long, really",
-    bgColor: "#ffe9e3",
-    bdColor: "#ffc9b3",
-    pattern: "",
+    bgColor: "#333333",
+    bdColor: "#666666",
+    pattern: "hideout",
     //download: "PNG",
     author: "Ágata Ordano",
-    icon: { label: "react", value: "react" },
+    icon: { label: "typescript", value: "typescript" },
     devIconOptions: [
         {
             name: "adonisjs",
@@ -31,8 +31,8 @@ const defaultSettings: Types.ISettings = {
             ],
         },
     ],
-    font: "font-Anek",
-    theme: "stylish",
+    font: "font-sans",
+    theme: "modern",
     customIcon: undefined,
     platform: "hashnode",
     loading: false,
