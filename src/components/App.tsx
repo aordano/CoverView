@@ -6,8 +6,9 @@ import Editor from "./Editor";
 const defaultSettings: Types.ISettings = {
     title: "This is a placeholder quite long, really",
     bgColor: "#ffe9e3",
+    bdColor: "#ffc9b3",
     pattern: "",
-    download: "PNG",
+    //download: "PNG",
     author: "Ágata Ordano",
     icon: { label: "react", value: "react" },
     devIconOptions: [
@@ -33,8 +34,9 @@ const defaultSettings: Types.ISettings = {
     ],
     font: "font-Anek",
     theme: "stylish",
-    customIcon: new File([], ""),
+    customIcon: undefined,
     platform: "hashnode",
+    loading: false,
 };
 
 const App = () => {

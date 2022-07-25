@@ -20,15 +20,16 @@ export interface IDevIcon {
 export interface ISettings {
     title: string;
     bgColor: string;
+    bdColor: string;
     pattern: string;
-    download: string;
     author: string;
     icon: { label: string; value: string };
     devIconOptions: IDevIcon[];
     font: string;
     theme: string;
-    customIcon: File;
+    customIcon: string | undefined;
     platform: string;
+    loading: boolean;
 }
 
 export type TThemeGetter = (
