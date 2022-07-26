@@ -46,7 +46,9 @@ export const DynamicIconList = (
     const lib = import(`./icon/${provider}.ts`)
         .then((iconModule) => {
             const values = Object.keys(iconModule);
-            const labels = values.map((value) => value.slice(2));
+            const labels = values.map((value) =>
+                value.slice(value.charCodeAt(2) > 90 ? 3 : 2)
+            );
 
             return values.map((value, index) => {
                 return {

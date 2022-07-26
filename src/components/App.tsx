@@ -1,7 +1,7 @@
 import React from "react";
 import * as Types from "./types";
 import Editor from "./Editor";
-import devicons from "./devicons.json";
+import providers from "./icon/providers.json";
 
 const defaultSettings: Types.ISettings = {
     title: "This is a placeholder quite long, really",
@@ -12,16 +12,7 @@ const defaultSettings: Types.ISettings = {
     author: "Ágata Ordano",
     selectedIcon: { label: "Haskell", value: "DiHaskell" },
     selectedProvider: "di",
-    iconProviders: [
-        {
-            label: "Font Awesome",
-            value: "fa",
-        },
-        {
-            label: "Devicons",
-            value: "di",
-        },
-    ],
+    iconProviders: providers,
     font: "font-sans",
     theme: "modern",
     customIcon: undefined,

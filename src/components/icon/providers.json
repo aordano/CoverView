@@ -1,0 +1,26 @@
+[
+    {
+        "label": "Font Awesome",
+        "value": "fa"
+    },
+    {
+        "label": "Devicons",
+        "value": "di"
+    },
+    {
+        "label": "Visual Studio Code",
+        "value": "vsc"
+    },
+    {
+        "label": "Material Design",
+        "value": "md"
+    },
+    {
+        "label": "Flat Color",
+        "value": "fc"
+    },
+    {
+        "label": "Simple Icons",
+        "value": "si"
+    }
+]
