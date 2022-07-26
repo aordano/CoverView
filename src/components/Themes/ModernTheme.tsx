@@ -1,5 +1,6 @@
 import React from "react";
 import * as Types from "../types";
+import * as Util from "../util";
 
 const ModernTheme = ({ settings }: { settings: Types.ISettings }) => {
     const {
@@ -8,7 +9,8 @@ const ModernTheme = ({ settings }: { settings: Types.ISettings }) => {
         bdColor,
         pattern,
         author,
-        icon,
+        selectedIcon,
+        selectedProvider,
         font,
         customIcon,
         platform,
@@ -34,9 +36,11 @@ const ModernTheme = ({ settings }: { settings: Types.ISettings }) => {
                         </div>
                     ) : (
                         <div className=" rounded-full p-6 w-32 h-32 bg-white mx-auto items-center justify-center flex">
-                            <i
-                                className={`devicon-${icon.value}-plain  p-4 dev-icon text-7xl`}
-                            ></i>
+                            <Util.DynamicIcon
+                                icon={`${selectedProvider}/${selectedIcon.value}`}
+                                size="5em"
+                                color="black"
+                            />
                         </div>
                     )}
 

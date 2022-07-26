@@ -1,12 +1,15 @@
 import React from "react";
 import * as Types from "../types";
+import * as Util from "../util";
 const OutlineTheme = ({ settings }: { settings: Types.ISettings }) => {
     const {
         title,
         bgColor,
+        bdColor,
         pattern,
         author,
-        icon,
+        selectedIcon,
+        selectedProvider,
         font,
         customIcon,
         platform,
@@ -27,7 +30,7 @@ const OutlineTheme = ({ settings }: { settings: Types.ISettings }) => {
                 </div>
 
                 <div
-                    className={`${font} w-full h-16 border-gray-800 border-t-4 flex  mt-auto mb-0 p-2 px-6  items-center bg-white`}
+                    className={`${font} w-full h-24 border-gray-800 border-t-4 flex  mt-auto mb-0 p-2 px-6  items-center bg-white`}
                 >
                     {customIcon ? (
                         <div className="w-12 h-12  ">
@@ -38,10 +41,12 @@ const OutlineTheme = ({ settings }: { settings: Types.ISettings }) => {
                             />
                         </div>
                     ) : (
-                        <div className="  mr-auto ml-2 items-center justify-center flex">
-                            <i
-                                className={`devicon-${icon.value}-plain  p-4 dev-icon text-5xl`}
-                            ></i>
+                        <div className="mr-auto ml-2 items-center justify-center flex">
+                            <Util.DynamicIcon
+                                icon={`${selectedProvider}/${selectedIcon.value}`}
+                                size="80px"
+                                color="black"
+                            />
                         </div>
                     )}
                     <h2 className="text-xl ml-auto mr-2 font-semibold">

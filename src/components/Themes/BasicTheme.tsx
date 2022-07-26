@@ -1,13 +1,16 @@
 import React from "react";
 import * as Types from "../types";
+import * as Util from "../util";
 
 const BasicTheme = ({ settings }: { settings: Types.ISettings }) => {
     const {
         title,
         bgColor,
+        bdColor,
         pattern,
         author,
-        icon,
+        selectedIcon,
+        selectedProvider,
         font,
         customIcon,
         platform,
@@ -40,10 +43,12 @@ const BasicTheme = ({ settings }: { settings: Types.ISettings }) => {
                                 />
                             </div>
                         ) : (
-                            <div className="mr-auto ml-2 items-center justify-center flex">
-                                <i
-                                    className={`devicon-${icon.value}-plain  p-4 dev-icon text-5xl`}
-                                ></i>
+                            <div className="rounded-full bg-white mr-auto ml-2 items-center justify-center flex">
+                                <Util.DynamicIcon
+                                    icon={`${selectedProvider}/${selectedIcon.value}`}
+                                    size="5em"
+                                    color="black"
+                                />
                             </div>
                         )}
 
