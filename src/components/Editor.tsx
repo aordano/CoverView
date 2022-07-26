@@ -83,7 +83,7 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
     render() {
         return (
             <div className="flex md:flex-row flex-col bg-gray-200 justify-center p-2">
-                <div className="bg-white shadow-sm p-4 flex flex-col md:w-1/4">
+                <div className="bg-white shadow-sm p-4 flex flex-col md:w-1/3">
                     <div className="m-2 flex flex-col">
                         <span className="font-medium">Blog Title</span>
                         <textarea
@@ -225,7 +225,7 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
                     )}
 
                     <div className="flex">
-                        <div className="flex flex-col m-2 w-1/2">
+                        <div className="flex flex-col m-2 w-1/4">
                             <span className="font-medium">Pattern</span>
                             <select
                                 onChange={(e) =>
@@ -258,7 +258,7 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
                             </select>
                         </div>
 
-                        <div className="flex flex-col m-2 w-1/2">
+                        <div className="flex flex-col m-2 w-1/4">
                             <span className="font-medium">Theme</span>
 
                             <select
@@ -274,6 +274,34 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
                                 <option>modern</option>
                                 <option>outline</option>
                             </select>
+                        </div>
+
+                        {
+                            //TODO Fix alignment of elemnts
+                        }
+
+                        <div className="w-1/4 items-center justify-center flex flex-row">
+                            <RandomTheme onThemeChange={this.getRandomTheme} />
+                            <button
+                                className="reset-btn border bg-slate-800 hover:bg-indigo-900 text-white hover:-translate-y-[1px] p-2 rounded cursor-pointer"
+                                onClick={this.handleReset}
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="1.75em"
+                                    height="1.75em"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="1.75"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    className="feather feather-rotate-ccw opacity-60 m-auto"
+                                >
+                                    <polyline points="1 4 1 10 7 10"></polyline>
+                                    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                                </svg>
+                            </button>
                         </div>
                     </div>
 
@@ -293,43 +321,9 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
                             <option>dev</option>
                         </select>
                     </div>
-
-                    {/* <div className="mx-4 my-1">
-						<h6>Download As</h6>
-						<select onChange={(e) => this.setState({ download: e.target.value })}
-							className="form-control input"
-							value={this.state.download}>
-							<option>PNG</option>
-							<option>JPEG</option>
-						</select>
-					</div> */}
                 </div>
 
-                <div className="m-2 items-center justify-center flex flex-col">
-                    <RandomTheme onThemeChange={this.getRandomTheme} />
-                    <button
-                        className="reset-btn border bg-slate-800 hover:bg-indigo-900 text-white hover:-translate-y-[1px] p-2 rounded cursor-pointer min-w-full"
-                        onClick={this.handleReset}
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="1.75em"
-                            height="1.75em"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                                    strokeWidth="1.75"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                            className="feather feather-rotate-ccw opacity-60 m-auto"
-                        >
-                            <polyline points="1 4 1 10 7 10"></polyline>
-                            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
-                        </svg>
-                    </button>
-                </div>
-
-                <div className="flex flex-col items-center justify-center ">
+                <div className="flex flex-col p-4 items-center justify-center ">
                     <ComponentToImg>
                         <CoverImage {...this.state} />
                     </ComponentToImg>
