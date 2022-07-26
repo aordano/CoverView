@@ -5,6 +5,7 @@ const ModernTheme = ({ settings }: { settings: Types.ISettings }) => {
     const {
         title,
         bgColor,
+        bdColor,
         pattern,
         author,
         icon,
@@ -14,12 +15,15 @@ const ModernTheme = ({ settings }: { settings: Types.ISettings }) => {
     } = settings;
 
     return (
-        <div className="w-full p-4 bg-white border">
+        <div className="w-full p-4 border" style={{ backgroundColor: bdColor }}>
             <div className=" overflow-y-hidden w-full flex  items-center">
                 <div
                     className={`  h-full w-full rounded-xl  p-4 text-gray-800 flex  items-center ${pattern} ${platform}`}
                     style={{ backgroundColor: bgColor }}
                 >
+                    {
+                        //TODO Increase rounding of the main background, and add a border that is contrasting with the bdColor
+                    }
                     {customIcon ? (
                         <div className="  mx-auto items-center justify-center flex">
                             <img

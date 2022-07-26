@@ -112,8 +112,8 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
                         ></input>
                     </div>
 
-                    <div className="flex items-center">
-                        <div className="flex flex-col m-2 w-1/2">
+                    <div className="flex flex-col">
+                        <div className="flex flex-col items-center m-2 w-1/2">
                             <span className="font-medium">Font</span>
 
                             <select
@@ -134,8 +134,11 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
                                 <option>font-Nunito</option>
                             </select>
                         </div>
-                        <div className="flex flex-col m-2 ">
-                            <span className="font-medium">Color</span>
+                    </div>
+
+                    <div className="flex flex-row items-center">
+                        <div className="flex flex-col m-1 ">
+                            <span className="font-medium">Background</span>
                             <div className="border rounded flex items-center p-2">
                                 <span className="text-sm text-gray-700 font-semibold mx-2">
                                     {this.state.bgColor}
@@ -146,6 +149,24 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
                                     onChange={(e) =>
                                         this.setState({
                                             bgColor: e.target.value,
+                                        })
+                                    }
+                                    className="h-8 w-8  rounded"
+                                />
+                            </div>
+                        </div>
+                        <div className="flex flex-col m-1">
+                            <span className="font-medium">Border</span>
+                            <div className="border rounded flex items-center p-2">
+                                <span className="text-sm text-gray-700 font-semibold mx-2">
+                                    {this.state.bdColor}
+                                </span>
+                                <input
+                                    type="color"
+                                    value={this.state.bdColor}
+                                    onChange={(e) =>
+                                        this.setState({
+                                            bdColor: e.target.value,
                                         })
                                     }
                                     className="h-8 w-8  rounded"
