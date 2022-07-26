@@ -5,10 +5,10 @@ export interface IColorTheme {
 
 export interface IDevIcon {
     name: string;
-    tags: [string, string];
+    tags: string[];
     versions: {
-        svg: [string, string];
-        font: [string, string];
+        svg: string[];
+        font: string[];
     };
     color: string;
     aliases: {

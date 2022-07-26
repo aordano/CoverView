@@ -1,6 +1,7 @@
 import React from "react";
 import * as Types from "./types";
 import Editor from "./Editor";
+import devicons from "./devicons.json";
 
 const defaultSettings: Types.ISettings = {
     title: "This is a placeholder quite long, really",
@@ -10,27 +11,7 @@ const defaultSettings: Types.ISettings = {
     //download: "PNG",
     author: "Ágata Ordano",
     icon: { label: "typescript", value: "typescript" },
-    devIconOptions: [
-        {
-            name: "adonisjs",
-            tags: ["nodejs", "framework"],
-            versions: {
-                svg: ["original", "original-wordmark"],
-                font: ["original", "original-wordmark"],
-            },
-            color: "#5A45FF",
-            aliases: [
-                {
-                    base: "original",
-                    alias: "plain",
-                },
-                {
-                    base: "original-wordmark",
-                    alias: "plain-wordmark",
-                },
-            ],
-        },
-    ],
+    devIconOptions: devicons as Types.IDevIcon[],
     font: "font-sans",
     theme: "modern",
     customIcon: undefined,

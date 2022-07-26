@@ -5,29 +5,9 @@ import Select from "react-select";
 import RandomTheme from "./RandomTheme";
 import * as Types from "./types";
 import * as Util from "./util";
-// import resetIcon from '../assets/icons/reset.svg'
-
-const devIconsUrl =
-    "https://raw.githubusercontent.com/devicons/devicon/master/devicon.json";
-// const devIconOptions = [
-// 	{ value: 'None', label: 'None' },
-// 	{ value: 'javascript', label: 'Javascript' },
-// 	{ value: 'python', label: 'Python' },
-// ]
 
 class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
     state = this.props.settings;
-    componentDidMount() {
-        console.log("Mount");
-        fetch(devIconsUrl)
-            .then((r) => r.json())
-            .then((data) => {
-                data.push({ name: "custom" });
-                this.setState({
-                    devIconOptions: data,
-                });
-            });
-    }
     handleReset = () => {
         this.setState(this.props.settings);
     };
