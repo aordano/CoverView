@@ -208,7 +208,17 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
 
                     <div className="flex flex-row">
                         <div className="flex flex-col m-2 w-1/2">
-                            <span className="font-medium">Provider</span>
+                            <span className="font-medium">
+                                Provider
+                                <a
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-blue-400 px-1"
+                                    href={`https://react-icons.github.io/react-icons/icons?name=${this.state.selectedProvider}`}
+                                >
+                                    (Chart)
+                                </a>
+                            </span>
                             <Select
                                 value={{
                                     value: this.state.selectedProvider,
