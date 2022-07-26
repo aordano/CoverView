@@ -125,7 +125,7 @@ class RandomTheme extends React.Component<Types.IRandomThemeProps> {
     render() {
         return (
             <div
-                className="shuffle-btn border  bg-slate-800 hover:bg-indigo-900 text-white  hover:-translate-y-[1px] p-2 rounded cursor-pointer "
+                className="transition-all duration-300 btn bg-base-100 border-0 rounded-2 w-[45px] h-[45px] mx-1 hover:-translate-y-[1px] p-2 cursor-pointer"
                 onClick={this.changeTheme}
             >
                 <svg

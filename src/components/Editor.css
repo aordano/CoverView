@@ -1,0 +1,11 @@
+.weird-selector div {
+    border: none;
+}
+
+.weird-selector span {
+    background-color: inherit;
+}
+
+.weird-selector [class$="l"] {
+    margin-block: 3px;
+}
