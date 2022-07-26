@@ -49,3 +49,12 @@ export interface IComponentToImageProps {
     fileType: string;
     fileName: string;
 }
+
+export interface IReactIconProps {
+    icon: string;
+    color?: string;
+    size?: string;
+    className?: string;
+    style?: CSSProperties;
+    attr?: SVGAttributes<SVGElement>;
+}
