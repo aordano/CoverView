@@ -10,8 +10,18 @@ const defaultSettings: Types.ISettings = {
     pattern: "hideout",
     //download: "PNG",
     author: "Ágata Ordano",
-    icon: { label: "typescript", value: "typescript" },
-    devIconOptions: devicons as Types.IDevIcon[],
+    selectedIcon: { label: "Haskell", value: "DiHaskell" },
+    selectedProvider: "di",
+    iconProviders: [
+        {
+            label: "Font Awesome",
+            value: "fa",
+        },
+        {
+            label: "Devicons",
+            value: "di",
+        },
+    ],
     font: "font-sans",
     theme: "modern",
     customIcon: undefined,

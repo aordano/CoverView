@@ -51,6 +51,40 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
             });
     };
 
+    handleProviderIconListLoad = (provider: string) => {
+        this.setState({
+            loading: true,
+        });
+
+        if (this.state.providerList) {
+            this.setState({
+                providerList: undefined,
+            });
+        }
+
+        Util.DynamicIconList(provider)
+            .then((list) => {
+                this.setState({
+                    loading: false,
+                    providerList: list ?? [],
+                    selectedIcon: {
+                        label: (list ?? [])[0].label,
+                        value: (list ?? [])[0].value,
+                    },
+                });
+            })
+            .catch((err) => {
+                console.error("Loading the data failed.");
+                this.setState({
+                    loading: false,
+                });
+            });
+    };
+
+    componentDidMount() {
+        this.handleProviderIconListLoad(this.state.selectedProvider);
+    }
+
     handleCustomIconReset = () => {
         this.setState({
             customIcon: undefined,
@@ -65,18 +99,15 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
         });
     };
 
-    formatOptionLabel = ({
-        value,
-        label,
-    }: {
-        value: string;
-        label: string;
-    }) => (
+    formatIconLabel = ({ value, label }: { value: string; label: string }) => (
         <div className="flex">
             <span className="mr-2">{label}</span>
-            <div className="ml-auto mr-2">
-                <i className={`devicon-${value}-plain dev-icon text-2xl`}></i>
-            </div>
+        </div>
+    );
+
+    formatIconProviderLabel = ({ label }: { label: string }) => (
+        <div className="flex">
+            <span className="mr-2">{label}</span>
         </div>
     );
 
@@ -175,30 +206,58 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
                         </div>
                     </div>
 
-                    <div className="flex flex-col m-2 ">
-                        <span className="font-medium">Icon</span>
-                        <Select
-                            value={this.state.icon}
-                            onChange={(selectedOption) =>
-                                this.setState({
-                                    icon: {
-                                        label: selectedOption?.label ?? "Error",
-                                        value: selectedOption?.value ?? "Error",
-                                    },
-                                })
-                            }
-                            options={this.state.devIconOptions.map((item) => {
-                                return {
-                                    value: item.name,
-                                    label: item.name,
-                                };
-                            })}
-                            formatOptionLabel={this.formatOptionLabel}
-                            className="outline-none focus:outline-none text-xl text-gray-700"
-                        />
+                    <div className="flex flex-row">
+                        <div className="flex flex-col m-2 w-1/2">
+                            <span className="font-medium">Provider</span>
+                            <Select
+                                value={{
+                                    value: this.state.selectedProvider,
+                                    label: this.state.iconProviders.filter(
+                                        (provider) =>
+                                            provider.value ===
+                                            this.state.selectedProvider
+                                    )[0].label,
+                                }}
+                                onChange={(selectedOption) => {
+                                    this.setState({
+                                        selectedProvider:
+                                            selectedOption?.value ?? "Error",
+                                    });
+                                    this.handleProviderIconListLoad(
+                                        selectedOption?.value ?? "Error"
+                                    );
+                                }}
+                                options={this.state.iconProviders}
+                                formatOptionLabel={this.formatIconProviderLabel}
+                                className="outline-none focus:outline-none text-xl text-gray-700"
+                            />
+                        </div>
+
+                        <div className="flex flex-col m-2 w-1/2">
+                            <span className="font-medium">Icon</span>
+                            <Select
+                                value={this.state.selectedIcon}
+                                onChange={(selectedOption) =>
+                                    this.setState({
+                                        selectedIcon: {
+                                            label:
+                                                selectedOption?.label ??
+                                                "Error",
+                                            value:
+                                                selectedOption?.value ??
+                                                "Error",
+                                        },
+                                    })
+                                }
+                                isSearchable={true}
+                                options={this.state.providerList}
+                                formatOptionLabel={this.formatIconLabel}
+                                className="outline-none focus:outline-none text-xl text-gray-700"
+                            />
+                        </div>
                     </div>
 
-                    {this.state.icon.label === "custom" ? (
+                    {this.state.selectedIcon.label === "custom" ? (
                         <div className="flex items-center justify-center m-2">
                             <input
                                 type="file"

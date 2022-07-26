@@ -1,33 +1,22 @@
+import { CSSProperties, SVGAttributes } from "react";
+
 export interface IColorTheme {
     bgColor: string;
     bdColor: string;
 }
-
-export interface IDevIcon {
-    name: string;
-    tags: string[];
-    versions: {
-        svg: string[];
-        font: string[];
-    };
-    color: string;
-    aliases: {
-        base: string;
-        alias: string;
-    }[];
-}
-
 export interface ISettings {
     title: string;
     bgColor: string;
     bdColor: string;
     pattern: string;
     author: string;
-    icon: { label: string; value: string };
-    devIconOptions: IDevIcon[];
+    selectedIcon: { label: string; value: string };
+    iconProviders: { label: string; value: string }[];
+    selectedProvider: string;
+    providerList?: { label: string; value: string }[];
     font: string;
     theme: string;
-    customIcon: string | undefined;
+    customIcon?: string;
     platform: string;
     loading: boolean;
 }
