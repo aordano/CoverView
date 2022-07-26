@@ -313,9 +313,9 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
                             viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
-                            stroke-width="1.75"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                                    strokeWidth="1.75"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
                             className="feather feather-rotate-ccw opacity-60 m-auto"
                         >
                             <polyline points="1 4 1 10 7 10"></polyline>
