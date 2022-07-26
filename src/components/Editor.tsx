@@ -214,8 +214,12 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
                                 Remove
                             </button>
                         </div>
-                    ) : this.state.loading !== true ? (
-                        <div>loading</div>
+                    ) : this.state.loading === true ? (
+                        <div className="border p-2  bg-slate-800 hover:bg-indigo-900 hover:-translate-y-[1px] text-white  flex items-center text-white text-xl rounded-lg m-4 px-4">
+                            <span className="w-full text-center">
+                                Loading...
+                            </span>
+                        </div>
                     ) : (
                         <div></div>
                     )}
