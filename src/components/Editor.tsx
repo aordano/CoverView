@@ -267,7 +267,7 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
                         </div>
                     </div>
 
-                    {this.state.selectedIcon.label === "custom" ? (
+                    {this.state.selectedIcon.label === "[custom]" ? (
                         <div className="flex items-center justify-center m-2">
                             <input
                                 type="file"

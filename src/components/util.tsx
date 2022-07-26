@@ -15,14 +15,18 @@ export function getBase64(file: File): Promise<string> {
 }
 
 export const DynamicIcon: React.FC<Types.IReactIconProps> = ({ ...props }) => {
-    const [library, iconComponent] = props.icon.split("/");
+    const [provider, iconName] = props.icon.split("/");
 
-    if (!library || !iconComponent) return <div>Could Not Find Icon</div>;
+    if (!provider || !iconName) return <div>Could Not Find Icon</div>;
 
-    const lib = library.toLowerCase();
+    if (iconName === "[custom]") {
+        return <React.Fragment></React.Fragment>;
+    }
+
+    const lib = provider.toLowerCase();
     const Icon = loadable(() => import(`./icon/${lib}.ts`), {
         resolveComponent: (el: JSX.Element) =>
-            el[iconComponent as keyof JSX.Element],
+            el[iconName as keyof JSX.Element],
     });
 
     const value: IconContext = {
@@ -50,12 +54,14 @@ export const DynamicIconList = (
                 value.slice(value.charCodeAt(2) > 90 ? 3 : 2)
             );
 
-            return values.map((value, index) => {
+            const list = values.map((value, index) => {
                 return {
                     value,
                     label: labels[index].replaceAll(/([A-Z])/g, " $1").trim(),
                 };
             });
+            list.push({ label: "[custom]", value: "[custom]" });
+            return list;
         })
         .catch((error) => console.error(error));
     return lib;
