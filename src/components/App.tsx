@@ -5,8 +5,9 @@ import providers from "./icon/providers.json";
 
 const defaultSettings: Types.ISettings = {
     title: "This is a placeholder quite long, really",
-    bgColor: "#333333",
-    bdColor: "#666666",
+    backgroundColor: "#333333",
+    frameColor: "#666666",
+    iconColor: "#000000",
     pattern: "hideout",
     //download: "PNG",
     author: "Ágata Ordano",

@@ -4,10 +4,14 @@ export interface IColorTheme {
     bgColor: string;
     bdColor: string;
 }
+
+type HexColor = string;
+
 export interface ISettings {
     title: string;
-    bgColor: string;
-    bdColor: string;
+    backgroundColor: HexColor;
+    frameColor: HexColor;
+    iconColor: HexColor;
     pattern: string;
     author: string;
     selectedIcon: { label: string; value: string };

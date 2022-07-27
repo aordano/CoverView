@@ -5,8 +5,9 @@ import * as Util from "../util";
 const ModernTheme = ({ settings }: { settings: Types.ISettings }) => {
     const {
         title,
-        bgColor,
-        bdColor,
+        backgroundColor,
+        frameColor,
+        iconColor,
         pattern,
         author,
         selectedIcon,
@@ -17,15 +18,15 @@ const ModernTheme = ({ settings }: { settings: Types.ISettings }) => {
     } = settings;
 
     return (
-        <div className="w-full p-4 border" style={{ backgroundColor: bdColor }}>
+        <div
+            className="w-full p-4 border"
+            style={{ backgroundColor: frameColor }}
+        >
             <div className=" overflow-y-hidden w-full flex  items-center">
                 <div
                     className={`  h-full w-full rounded-xl  p-4 text-gray-800 flex  items-center ${pattern} ${platform}`}
-                    style={{ backgroundColor: bgColor }}
+                    style={{ backgroundColor: backgroundColor }}
                 >
-                    {
-                        //TODO Increase rounding of the main background, and add a border that is contrasting with the bdColor
-                    }
                     {customIcon ? (
                         <div className="  mx-auto items-center justify-center flex">
                             <img
@@ -39,7 +40,7 @@ const ModernTheme = ({ settings }: { settings: Types.ISettings }) => {
                             <Util.DynamicIcon
                                 icon={`${selectedProvider}/${selectedIcon.value}`}
                                 size="5em"
-                                color="black"
+                                color={iconColor}
                             />
                         </div>
                     )}

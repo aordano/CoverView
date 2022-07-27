@@ -1,9 +1,8 @@
 import React from "react";
 import CoverImage from "./CoverImage";
 import ComponentToImg from "./ComponentToImg";
-import Select, { StylesConfig } from "react-select";
+import Select from "react-select";
 import RandomTheme from "./RandomTheme";
-import chroma from "chroma-js";
 import "./Editor.css";
 import * as Types from "./types";
 import * as Util from "./util";
@@ -95,8 +94,8 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
 
     getRandomTheme: Types.TThemeGetter = (theme, Pattern) => {
         this.setState({
-            bgColor: theme.bgColor,
-            bdColor: theme.bdColor,
+            backgroundColor: theme.bgColor,
+            frameColor: theme.bdColor,
             pattern: Pattern,
         });
     };
@@ -147,16 +146,16 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
                             <div className="input transition-all duration-300 border-0 text-l items-center flex p-2">
                                 <input
                                     type="color"
-                                    value={this.state.bgColor}
+                                    value={this.state.backgroundColor}
                                     onChange={(e) =>
                                         this.setState({
-                                            bgColor: e.target.value,
+                                            backgroundColor: e.target.value,
                                         })
                                     }
                                     className="flex mx-2 rounded-2 flex-row w-full rounded"
                                 />
                                 <span className="text-sm text-primary-content mx-2">
-                                    {this.state.bgColor}
+                                    {this.state.backgroundColor}
                                 </span>
                             </div>
                         </div>
@@ -165,16 +164,34 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
                             <div className="input transition-all duration-300 border-0 text-l flex items-center p-2">
                                 <input
                                     type="color"
-                                    value={this.state.bdColor}
+                                    value={this.state.frameColor}
                                     onChange={(e) =>
                                         this.setState({
-                                            bdColor: e.target.value,
+                                            frameColor: e.target.value,
                                         })
                                     }
                                     className="flex mx-2 rounded-2 flex-row w-full rounded"
                                 />
                                 <span className="text-sm text-primary-content mx-2">
-                                    {this.state.bdColor}
+                                    {this.state.frameColor}
+                                </span>
+                            </div>
+                        </div>
+                        <div className="flex flex-col m-1 w-1/3">
+                            <span className="font-medium">Icon</span>
+                            <div className="input transition-all duration-300 border-0 text-l flex items-center p-2">
+                                <input
+                                    type="color"
+                                    value={this.state.iconColor}
+                                    onChange={(e) =>
+                                        this.setState({
+                                            iconColor: e.target.value,
+                                        })
+                                    }
+                                    className="flex mx-2 rounded-2 flex-row w-full rounded"
+                                />
+                                <span className="text-sm text-primary-content mx-2">
+                                    {this.state.iconColor}
                                 </span>
                             </div>
                         </div>
