@@ -7,6 +7,11 @@ export interface IColorTheme {
 
 type HexColor = string;
 
+export interface ISelectOption {
+    label: string;
+    value: string;
+}
+
 export interface ISettings {
     title: string;
     backgroundColor: HexColor;

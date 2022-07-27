@@ -9,6 +9,7 @@ import chroma from "chroma-js";
 import patternsFile from "../assets/css/patterns.css";
 import platformsFile from "../assets/css/platforms.css";
 import fontsFile from "../assets/css/fonts.css";
+import * as providersModule from "./icon";
 
 class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
     state = this.props.settings;
@@ -17,13 +18,16 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
         const patterns = this.getOptionsFromCSS(patternsFile);
         const platforms = this.getOptionsFromCSS(platformsFile);
         const fonts = this.getOptionsFromCSS(fontsFile);
+        const providers = this.getProviderOptions(providersModule);
         this.setState({
             patternsList: patterns,
             platformsList: platforms,
             fontsList: fonts,
+            providersList: providers,
             pattern: patterns[0],
             platform: platforms[0],
             font: fonts[0],
+            selectedProvider: providers[0],
         });
     };
     getOptionsFromCSS = (file: string): Types.ISelectOption[] => {
@@ -37,6 +41,19 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
             });
         }
         return list;
+    };
+
+    getProviderOptions = (module: any): Types.ISelectOption[] => {
+        const options = Object.keys(module);
+
+        return options.map((option) => {
+            return {
+                value: option.replaceAll(/[a-z]/g, "").toLocaleLowerCase(),
+                label: option
+                    .replace(/^(\w)/g, (char) => char.toLocaleUpperCase())
+                    .replaceAll(/-/g, " "),
+            };
+        });
     };
 
     getRandomTheme = () => {
@@ -137,7 +154,7 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
             });
     };
 
-    handleProviderIconListLoad = (provider: string) => {
+    handleProviderIconListLoad = (provider: Types.ISelectOption) => {
         this.setState({
             loading: true,
         });
@@ -148,7 +165,7 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
             });
         }
 
-        Util.DynamicIconList(provider)
+        Util.DynamicIconList(provider.value)
             .then((list) => {
                 this.setState({
                     loading: false,
@@ -281,24 +298,22 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
                                 </a>
                             </span>
                             <Select
-                                value={{
-                                    value: this.state.selectedProvider,
-                                    label: this.state.iconProviders.filter(
-                                        (provider) =>
-                                            provider.value ===
-                                            this.state.selectedProvider
-                                    )[0].label,
-                                }}
+                                value={this.state.selectedProvider}
                                 onChange={(selectedOption) => {
                                     this.setState({
-                                        selectedProvider:
-                                            selectedOption?.value ?? "Error",
+                                        selectedProvider: selectedOption ?? {
+                                            value: "",
+                                            label: "",
+                                        },
                                     });
                                     this.handleProviderIconListLoad(
-                                        selectedOption?.value ?? "Error"
+                                        selectedOption ?? {
+                                            value: "",
+                                            label: "",
+                                        }
                                     );
                                 }}
-                                options={this.state.iconProviders}
+                                options={this.state.providersList}
                                 theme={(theme) => ({
                                     ...theme,
                                     colors: {
@@ -309,7 +324,8 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
                                         primary25: "hsl(var(--b2))",
                                     },
                                 })}
-                                formatOptionLabel={this.formatIconProviderLabel}
+                                menuPortalTarget={document.body}
+                                formatOptionLabel={this.formatSelectLabel}
                                 className="weird-selector input text-l bg-base-100"
                             />
                         </div>

@@ -46,7 +46,7 @@ export const DynamicIcon: React.FC<Types.IReactIconProps> = ({ ...props }) => {
 
 export const DynamicIconList = (
     provider: string
-): Promise<void | { value: string; label: string }[]> => {
+): Promise<void | Types.ISelectOption[]> => {
     const lib = import(`./icon/${provider}.ts`)
         .then((iconModule) => {
             const values = Object.keys(iconModule);
