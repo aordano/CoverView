@@ -1,16 +1,15 @@
 import React from "react";
-import "./CoverImage.css";
 import "../assets/css/patterns.css";
-import ModernTheme from "./Themes/ModernTheme";
-import BasicTheme from "./Themes/BasicTheme";
-import OutlineTheme from "./Themes/OutlineTheme";
+import ModernTheme from "./themes/Modern";
+import BasicTheme from "./themes/Basic";
+import OutlineTheme from "./themes/Outline";
 import * as Types from "./types";
 
 const CoverImage = (props: Types.ISettings) => {
     const { theme } = props;
 
-    const selectTheme = (theme: string) => {
-        switch (theme) {
+    const selectTheme = (theme: Types.ISelectOption) => {
+        switch (theme.value) {
             case "basic":
                 return <BasicTheme settings={props} />;
             case "modern":
@@ -19,7 +18,7 @@ const CoverImage = (props: Types.ISettings) => {
                 return <OutlineTheme settings={props} />;
 
             default:
-                return <BasicTheme settings={props} />;
+                return <ModernTheme settings={props} />;
         }
     };
 

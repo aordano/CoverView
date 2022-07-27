@@ -20,11 +20,11 @@ const BasicTheme = ({ settings }: { settings: Types.ISettings }) => {
     return (
         <div className="p-4 border" style={{ backgroundColor: frameColor }}>
             <div
-                className={`overflow-y-hidden flex  text-gray-800 items-center ${pattern} ${platform} `}
+                className={`overflow-y-hidden flex  text-gray-800 items-center ${pattern.value} ${platform.value} `}
                 style={{ backgroundColor: backgroundColor }}
             >
                 <div
-                    className={`${font} bg-white md:w-10/12  m-auto flex flex-col pt-12 rounded-xl`}
+                    className={`${font.value} bg-white md:w-10/12  m-auto flex flex-col pt-12 rounded-xl`}
                 >
                     <div className="px-12">
                         <div>
@@ -46,7 +46,7 @@ const BasicTheme = ({ settings }: { settings: Types.ISettings }) => {
                         ) : (
                             <div className="rounded-full bg-white mr-auto ml-2 items-center justify-center flex">
                                 <Util.DynamicIcon
-                                    icon={`${selectedProvider}/${selectedIcon.value}`}
+                                    icon={`${selectedProvider.value}/${selectedIcon.value}`}
                                     size="5em"
                                     color={iconColor}
                                 />

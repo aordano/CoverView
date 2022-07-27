@@ -9,6 +9,7 @@ import chroma from "chroma-js";
 import patternsFile from "../assets/css/patterns.css";
 import platformsFile from "../assets/css/platforms.css";
 import fontsFile from "../assets/css/fonts.css";
+import * as themesModule from "./themes";
 import * as providersModule from "./icon";
 
 class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
@@ -18,18 +19,22 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
         const patterns = this.getOptionsFromCSS(patternsFile);
         const platforms = this.getOptionsFromCSS(platformsFile);
         const fonts = this.getOptionsFromCSS(fontsFile);
+        const themes = this.getOptionsFromModule(themesModule);
         const providers = this.getProviderOptions(providersModule);
         this.setState({
             patternsList: patterns,
             platformsList: platforms,
             fontsList: fonts,
+            themesList: themes,
             providersList: providers,
             pattern: patterns[0],
             platform: platforms[0],
             font: fonts[0],
+            theme: themes.filter((theme) => theme.value === "modern")[0],
             selectedProvider: providers[0],
         });
     };
+
     getOptionsFromCSS = (file: string): Types.ISelectOption[] => {
         const list: Types.ISelectOption[] = [];
         for (let match of file.matchAll(/\.([^\d][^org][\w|-]+)/gi)) {
@@ -41,6 +46,19 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
             });
         }
         return list;
+    };
+
+    getOptionsFromModule = (module: any): Types.ISelectOption[] => {
+        const options = Object.keys(module);
+
+        return options.map((option) => {
+            return {
+                value: option,
+                label: option
+                    .replace(/^(\w)/g, (char) => char.toLocaleUpperCase())
+                    .replaceAll(/-/g, " "),
+            };
+        });
     };
 
     getProviderOptions = (module: any): Types.ISelectOption[] => {
@@ -431,20 +449,37 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
 
                         <div className="flex flex-col m-2 w-1/2">
                             <span className="font-medium">Theme</span>
-
-                            <select
-                                onChange={(e) =>
+                            <Select
+                                value={this.state.theme}
+                                onChange={(selectedOption) =>
                                     this.setState({
-                                        theme: e.target.value,
+                                        theme: {
+                                            label:
+                                                selectedOption?.label ??
+                                                "Error",
+                                            value:
+                                                selectedOption?.value ??
+                                                "Error",
+                                        },
                                     })
                                 }
-                                value={this.state.theme}
-                                className="transition-all duration-300 select border text-l p-2"
-                            >
-                                <option>basic</option>
-                                <option>modern</option>
-                                <option>outline</option>
-                            </select>
+                                isSearchable={true}
+                                options={this.state.themesList}
+                                theme={(theme) => ({
+                                    ...theme,
+
+                                    colors: {
+                                        ...theme.colors,
+                                        primary: "hsl(var(--b1))",
+                                        neutral0: "hsl(var(--b1))",
+                                        neutral50: "hsl(var(--b1))",
+                                        primary25: "hsl(var(--b2))",
+                                    },
+                                })}
+                                menuPortalTarget={document.body}
+                                formatOptionLabel={this.formatSelectLabel}
+                                className="overflow-auto weird-selector input text-l border-0"
+                            />
                         </div>
 
                         <div className="flex flex-col m-2 w-1/2">

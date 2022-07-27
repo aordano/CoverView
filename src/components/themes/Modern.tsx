@@ -24,7 +24,7 @@ const ModernTheme = ({ settings }: { settings: Types.ISettings }) => {
         >
             <div className=" overflow-y-hidden w-full flex  items-center">
                 <div
-                    className={`  h-full w-full rounded-xl  p-4 text-gray-800 flex  items-center ${pattern} ${platform}`}
+                    className={`  h-full w-full rounded-xl  p-4 text-gray-800 flex  items-center ${pattern.value} ${platform.value}`}
                     style={{ backgroundColor: backgroundColor }}
                 >
                     {customIcon ? (
@@ -38,7 +38,7 @@ const ModernTheme = ({ settings }: { settings: Types.ISettings }) => {
                     ) : (
                         <div className=" rounded-full p-6 w-32 h-32 bg-white mx-auto items-center justify-center flex">
                             <Util.DynamicIcon
-                                icon={`${selectedProvider}/${selectedIcon.value}`}
+                                icon={`${selectedProvider.value}/${selectedIcon.value}`}
                                 size="5em"
                                 color={iconColor}
                             />
@@ -47,7 +47,7 @@ const ModernTheme = ({ settings }: { settings: Types.ISettings }) => {
 
                     <div className="h-full w-2/3">
                         <div
-                            className={`${font} bg-white px-12 justify-center text-left rounded-xl h-full p-4 flex flex-col`}
+                            className={`${font.value} bg-white px-12 justify-center text-left rounded-xl h-full p-4 flex flex-col`}
                         >
                             <h1 className="text-3xl md:text-5xl font-bold text-gray-800">
                                 {title}

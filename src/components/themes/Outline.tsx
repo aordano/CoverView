@@ -19,11 +19,11 @@ const OutlineTheme = ({ settings }: { settings: Types.ISettings }) => {
     return (
         <div className="p-4 border" style={{ backgroundColor: frameColor }}>
             <div
-                className={`overflow-y-hidden rounded flex flex-col text-gray-800 items-center border-4 border-gray-800 ${pattern} ${platform} `}
+                className={`overflow-y-hidden rounded flex flex-col text-gray-800 items-center border-4 border-gray-800 ${pattern.value} ${platform.value} `}
                 style={{ backgroundColor: backgroundColor }}
             >
                 <div
-                    className={`${font} bg-white rounded-2xl md:w-10/12 m-auto flex flex-col p-12 `}
+                    className={`${font.value} bg-white rounded-2xl md:w-10/12 m-auto flex flex-col p-12 `}
                 >
                     <h1 className="text-3xl text-gray-800 md:text-5xl font-bold text-center">
                         {title}
@@ -31,7 +31,7 @@ const OutlineTheme = ({ settings }: { settings: Types.ISettings }) => {
                 </div>
 
                 <div
-                    className={`${font} w-full h-24 border-gray-800 border-t-4 flex  mt-auto mb-0 p-2 px-6  items-center bg-white`}
+                    className={`${font.value} w-full h-24 border-gray-800 border-t-4 flex  mt-auto mb-0 p-2 px-6  items-center bg-white`}
                 >
                     {customIcon ? (
                         <div className="w-12 h-12  ">
@@ -44,7 +44,7 @@ const OutlineTheme = ({ settings }: { settings: Types.ISettings }) => {
                     ) : (
                         <div className="mr-auto ml-2 items-center justify-center flex">
                             <Util.DynamicIcon
-                                icon={`${selectedProvider}/${selectedIcon.value}`}
+                                icon={`${selectedProvider.value}/${selectedIcon.value}`}
                                 size="80px"
                                 color={iconColor}
                             />
