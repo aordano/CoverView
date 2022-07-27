@@ -1,0 +1,4 @@
+package-lock.json linguist-generated
+*.config.js linguist-vendored
+tsconfig.json linguist-vendored
+public/** linguist-generated
