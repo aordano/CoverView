@@ -6,9 +6,31 @@ import "./Editor.css";
 import * as Types from "./types";
 import * as Util from "./util";
 import chroma from "chroma-js";
+import patternsFile from "../assets/css/patterns.css";
 
 class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
     state = this.props.settings;
+
+    initStuff = () => {
+        const patterns = this.getOptionsFromCSS(patternsFile);
+        this.setState({
+            patternsList: patterns,
+            pattern: patterns[0],
+        });
+    };
+    getOptionsFromCSS = (file: string): Types.ISelectOption[] => {
+        const list: Types.ISelectOption[] = [];
+        for (let match of file.matchAll(/\.([^\d][^org][\w|-]+)/gi)) {
+            list.push({
+                value: match[1],
+                label: match[1]
+                    .replace(/^(\w)/g, (char) => char.toLocaleUpperCase())
+                    .replaceAll(/-/g, " "),
+            });
+        }
+        return list;
+    };
+
     getRandomTheme = () => {
         const baseColor = chroma.random();
         const contrastColorRaw = baseColor.lch().map((value, index, color) => {
@@ -350,35 +372,37 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
                     <div className="flex">
                         <div className="flex flex-col m-2 w-1/2">
                             <span className="font-medium">Pattern</span>
-                            <select
-                                onChange={(e) =>
+                            <Select
+                                value={this.state.pattern}
+                                onChange={(selectedOption) =>
                                     this.setState({
-                                        pattern: e.target.value,
+                                        pattern: {
+                                            label:
+                                                selectedOption?.label ??
+                                                "Error",
+                                            value:
+                                                selectedOption?.value ??
+                                                "Error",
+                                        },
                                     })
                                 }
-                                className="transition-all duration-300 select border text-l p-2"
-                                value={this.state.pattern}
-                            >
-                                <option>none</option>
-                                <option>graph-paper</option>
-                                <option>jigsaw</option>
-                                <option>hideout</option>
-                                <option>dots</option>
-                                <option>falling-triangles</option>
-                                <option>circuit-board</option>
-                                <option>temple</option>
-                                <option>anchors</option>
-                                <option>brickwall</option>
-                                <option>overlapping-circles</option>
-                                <option>wiggle</option>
-                                <option>tic-tac-toe</option>
-                                <option>leaf</option>
-                                <option>bubbles</option>
-                                <option>squares</option>
-                                <option>explorer</option>
-                                <option>jupiter</option>
-                                <option>sun</option>
-                            </select>
+                                isSearchable={true}
+                                options={this.state.patternsList}
+                                theme={(theme) => ({
+                                    ...theme,
+
+                                    colors: {
+                                        ...theme.colors,
+                                        primary: "hsl(var(--b1))",
+                                        neutral0: "hsl(var(--b1))",
+                                        neutral50: "hsl(var(--b1))",
+                                        primary25: "hsl(var(--b2))",
+                                    },
+                                })}
+                                menuPortalTarget={document.body}
+                                formatOptionLabel={this.formatSelectLabel}
+                                className="overflow-auto weird-selector input text-l border-0"
+                            />
                         </div>
 
                         <div className="flex flex-col m-2 w-1/2">
