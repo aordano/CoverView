@@ -1,6 +1,5 @@
 import React from "react";
 import { exportComponentAsPNG } from "react-component-export-image";
-import "./CoverImage.css";
 
 const ComponentToImg = (props: { children: React.ReactNode }) => {
     const componentRef = React.createRef<any>(); // TODO give a type

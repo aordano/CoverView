@@ -7,15 +7,19 @@ import * as Types from "./types";
 import * as Util from "./util";
 import chroma from "chroma-js";
 import patternsFile from "../assets/css/patterns.css";
+import platformsFile from "../assets/css/platforms.css";
 
 class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
     state = this.props.settings;
 
     initStuff = () => {
         const patterns = this.getOptionsFromCSS(patternsFile);
+        const platforms = this.getOptionsFromCSS(platformsFile);
         this.setState({
             patternsList: patterns,
+            platformsList: platforms,
             pattern: patterns[0],
+            platform: platforms[0],
         });
     };
     getOptionsFromCSS = (file: string): Types.ISelectOption[] => {
@@ -499,19 +503,33 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
 
                     <div className="flex flex-col m-2">
                         <span className="font-medium">Platform</span>
-
-                        <select
-                            onChange={(e) =>
+                        <Select
+                            value={this.state.platform}
+                            onChange={(selectedOption) =>
                                 this.setState({
-                                    platform: e.target.value,
+                                    platform: {
+                                        label: selectedOption?.label ?? "Error",
+                                        value: selectedOption?.value ?? "Error",
+                                    },
                                 })
                             }
-                            value={this.state.platform}
-                            className="select border text-l p-2"
-                        >
-                            <option>hashnode</option>
-                            <option>dev</option>
-                        </select>
+                            isSearchable={true}
+                            options={this.state.platformsList}
+                            theme={(theme) => ({
+                                ...theme,
+
+                                colors: {
+                                    ...theme.colors,
+                                    primary: "hsl(var(--b1))",
+                                    neutral0: "hsl(var(--b1))",
+                                    neutral50: "hsl(var(--b1))",
+                                    primary25: "hsl(var(--b2))",
+                                },
+                            })}
+                            menuPortalTarget={document.body}
+                            formatOptionLabel={this.formatSelectLabel}
+                            className="overflow-auto weird-selector input text-l border-0"
+                        />
                     </div>
                 </div>
 
