@@ -316,7 +316,7 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="text-blue-400 px-1"
-                                    href={`https://react-icons.github.io/react-icons/icons?name=${this.state.selectedProvider}`}
+                                    href={`https://react-icons.github.io/react-icons/icons?name=${this.state.selectedProvider.value}`}
                                 >
                                     (Chart)
                                 </a>
