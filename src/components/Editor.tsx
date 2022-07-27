@@ -8,6 +8,7 @@ import * as Util from "./util";
 import chroma from "chroma-js";
 import patternsFile from "../assets/css/patterns.css";
 import platformsFile from "../assets/css/platforms.css";
+import fontsFile from "../assets/css/fonts.css";
 
 class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
     state = this.props.settings;
@@ -15,11 +16,14 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
     initStuff = () => {
         const patterns = this.getOptionsFromCSS(patternsFile);
         const platforms = this.getOptionsFromCSS(platformsFile);
+        const fonts = this.getOptionsFromCSS(fontsFile);
         this.setState({
             patternsList: patterns,
             platformsList: platforms,
+            fontsList: fonts,
             pattern: patterns[0],
             platform: platforms[0],
+            font: fonts[0],
         });
     };
     getOptionsFromCSS = (file: string): Types.ISelectOption[] => {
@@ -429,24 +433,37 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
 
                         <div className="flex flex-col m-2 w-1/2">
                             <span className="font-medium">Font</span>
-
-                            <select
+                            <Select
                                 value={this.state.font}
-                                onChange={(e) =>
+                                onChange={(selectedOption) =>
                                     this.setState({
-                                        font: e.target.value,
+                                        font: {
+                                            label:
+                                                selectedOption?.label ??
+                                                "Error",
+                                            value:
+                                                selectedOption?.value ??
+                                                "Error",
+                                        },
                                     })
                                 }
-                                className="transition-all duration-300 select border text-l p-2"
-                            >
-                                <option>font-serif</option>
-                                <option>font-sans</option>
-                                <option>font-mono</option>
-                                <option>font-Inter</option>
-                                <option>font-Poppins</option>
-                                <option>font-Anek</option>
-                                <option>font-Nunito</option>
-                            </select>
+                                isSearchable={true}
+                                options={this.state.fontsList}
+                                theme={(theme) => ({
+                                    ...theme,
+
+                                    colors: {
+                                        ...theme.colors,
+                                        primary: "hsl(var(--b1))",
+                                        neutral0: "hsl(var(--b1))",
+                                        neutral50: "hsl(var(--b1))",
+                                        primary25: "hsl(var(--b2))",
+                                    },
+                                })}
+                                menuPortalTarget={document.body}
+                                formatOptionLabel={this.formatSelectLabel}
+                                className="overflow-auto weird-selector input text-l border-0"
+                            />
                         </div>
 
                         <div className="flex flex-col justify-self-end m-2">
