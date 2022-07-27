@@ -2,6 +2,7 @@ import React from "react";
 import { IconContext } from "react-icons";
 import loadable from "@loadable/component";
 import * as Types from "./types";
+import chroma from "chroma-js";
 
 export function getBase64(file: File): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -65,4 +66,88 @@ export const DynamicIconList = (
         })
         .catch((error) => console.error(error));
     return lib;
+};
+
+export const getOptionsFromCSS = (file: string): Types.ISelectOption[] => {
+    const list: Types.ISelectOption[] = [];
+    for (let match of file.matchAll(/\.([^\d][^org][\w|-]+)/gi)) {
+        list.push({
+            value: match[1],
+            label: match[1]
+                .replace(/^(\w)/g, (char) => char.toLocaleUpperCase())
+                .replaceAll(/-/g, " "),
+        });
+    }
+    return list;
+};
+
+export const getOptionsFromModule = (module: any): Types.ISelectOption[] => {
+    const options = Object.keys(module);
+
+    return options.map((option) => {
+        return {
+            value: option,
+            label: option
+                .replace(/^(\w)/g, (char) => char.toLocaleUpperCase())
+                .replaceAll(/-/g, " "),
+        };
+    });
+};
+
+export const getProviderOptions = (module: any): Types.ISelectOption[] => {
+    const options = Object.keys(module);
+
+    return options.map((option) => {
+        return {
+            value: option.replaceAll(/[a-z]/g, "").toLocaleLowerCase(),
+            label: option
+                .replace(/^(\w)/g, (char) => char.toLocaleUpperCase())
+                .replaceAll(/-/g, " "),
+        };
+    });
+};
+
+export const randomTheme = () => {
+    const baseColor = chroma.random();
+    const contrastColorRaw = baseColor.lch().map((value, index, color) => {
+        switch (index) {
+            case 0: {
+                const lightness = value;
+                let reference = "white";
+
+                if (lightness > 127) {
+                    reference = "black";
+                } else {
+                }
+
+                const contrast = chroma.contrast(
+                    chroma.lch(color[0], color[1], color[2]),
+                    reference
+                );
+
+                if (contrast > 4.5) {
+                    return lightness;
+                } else {
+                    const correctedLightness =
+                        reference === "white"
+                            ? lightness - (255 - lightness) / 3
+                            : lightness + (255 - lightness) / 3;
+                    return correctedLightness;
+                }
+            }
+            case 1: {
+                return value;
+            }
+            case 2: {
+                return Math.abs(Math.trunc(value) - 255 / 3);
+            }
+        }
+        return value;
+    });
+    const contrastColor = chroma.lch(
+        contrastColorRaw[0],
+        contrastColorRaw[1],
+        contrastColorRaw[2]
+    );
+    return chroma.scale([baseColor, contrastColor]).mode("lab").colors(3);
 };

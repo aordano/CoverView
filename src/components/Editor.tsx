@@ -5,7 +5,6 @@ import Select from "react-select";
 import "./Editor.css";
 import * as Types from "./types";
 import * as Util from "./util";
-import chroma from "chroma-js";
 import patternsFile from "../assets/css/patterns.css";
 import platformsFile from "../assets/css/platforms.css";
 import fontsFile from "../assets/css/fonts.css";
@@ -16,11 +15,11 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
     state = this.props.settings;
 
     initStuff = () => {
-        const patterns = this.getOptionsFromCSS(patternsFile);
-        const platforms = this.getOptionsFromCSS(platformsFile);
-        const fonts = this.getOptionsFromCSS(fontsFile);
-        const themes = this.getOptionsFromModule(themesModule);
-        const providers = this.getProviderOptions(providersModule);
+        const patterns = Util.getOptionsFromCSS(patternsFile);
+        const platforms = Util.getOptionsFromCSS(platformsFile);
+        const fonts = Util.getOptionsFromCSS(fontsFile);
+        const themes = Util.getOptionsFromModule(themesModule);
+        const providers = Util.getProviderOptions(providersModule);
         this.setState({
             patternsList: patterns,
             platformsList: platforms,
@@ -35,91 +34,12 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
         });
     };
 
-    getOptionsFromCSS = (file: string): Types.ISelectOption[] => {
-        const list: Types.ISelectOption[] = [];
-        for (let match of file.matchAll(/\.([^\d][^org][\w|-]+)/gi)) {
-            list.push({
-                value: match[1],
-                label: match[1]
-                    .replace(/^(\w)/g, (char) => char.toLocaleUpperCase())
-                    .replaceAll(/-/g, " "),
-            });
-        }
-        return list;
-    };
+    formatSelectLabel = ({ label }: Types.ISelectOption) => (
+        <div className="m-0 p-0 text-primary-content">{label}</div>
+    );
 
-    getOptionsFromModule = (module: any): Types.ISelectOption[] => {
-        const options = Object.keys(module);
-
-        return options.map((option) => {
-            return {
-                value: option,
-                label: option
-                    .replace(/^(\w)/g, (char) => char.toLocaleUpperCase())
-                    .replaceAll(/-/g, " "),
-            };
-        });
-    };
-
-    getProviderOptions = (module: any): Types.ISelectOption[] => {
-        const options = Object.keys(module);
-
-        return options.map((option) => {
-            return {
-                value: option.replaceAll(/[a-z]/g, "").toLocaleLowerCase(),
-                label: option
-                    .replace(/^(\w)/g, (char) => char.toLocaleUpperCase())
-                    .replaceAll(/-/g, " "),
-            };
-        });
-    };
-
-    getRandomTheme = () => {
-        const baseColor = chroma.random();
-        const contrastColorRaw = baseColor.lch().map((value, index, color) => {
-            switch (index) {
-                case 0: {
-                    const lightness = value;
-                    let reference = "white";
-
-                    if (lightness > 127) {
-                        reference = "black";
-                    } else {
-                    }
-
-                    const contrast = chroma.contrast(
-                        chroma.lch(color[0], color[1], color[2]),
-                        reference
-                    );
-
-                    if (contrast > 4.5) {
-                        return lightness;
-                    } else {
-                        const correctedLightness =
-                            reference === "white"
-                                ? lightness - (255 - lightness) / 3
-                                : lightness + (255 - lightness) / 3;
-                        return correctedLightness;
-                    }
-                }
-                case 1: {
-                    return value;
-                }
-                case 2: {
-                    return Math.abs(Math.trunc(value) - 255 / 3);
-                }
-            }
-            return value;
-        });
-        const contrastColor = chroma.lch(
-            contrastColorRaw[0],
-            contrastColorRaw[1],
-            contrastColorRaw[2]
-        );
-        const colors = chroma
-            .scale([baseColor, contrastColor])
-            .mode("lab")
-            .colors(3);
+    handleThemeRandomization = () => {
+        const colors = Util.randomTheme();
         this.setState({
             backgroundColor: colors[0],
             frameColor: colors[2],
@@ -129,10 +49,6 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
             ] ?? { label: "", value: "" },
         });
     };
-
-    formatSelectLabel = ({ label }: Types.ISelectOption) => (
-        <div className="m-0 p-0 text-primary-content">{label}</div>
-    );
 
     handleReset = () => {
         this.setState(this.props.settings);
@@ -532,7 +448,7 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
                             <div className="items-center justify-center flex flex-row">
                                 <button
                                     className="transition-all duration-300 btn bg-base-100 border-0 rounded-2 w-[45px] h-[45px] mx-1 hover:-translate-y-[1px] p-2 cursor-pointer"
-                                    onClick={this.getRandomTheme}
+                                    onClick={this.handleThemeRandomization}
                                 >
                                     <svg
                                         width="1.75em"
