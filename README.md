@@ -1,61 +1,32 @@
 
+## Open Graph Cover Generator
 
-## Coverview
-Creating cover images for your blogs is now super easy.
-<p>
-<a href="https://github.com/rutikwankhade/CoverView"><img src="https://img.shields.io/github/stars/rutikwankhade/CoverView.svg?style=social&label=Star"></a>
-<a href="https://github.com/rutikwankhade/CoverView"><img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103"></a>
-<a href="https://lbesson.mit-license.org"><img src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
+![GitHub](https://img.shields.io/github/license/aordano/OpenGraphCover?style=flat-square)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/aordano/OpenGraphCover?style=flat-square)
 
+## This is a fork of [CoverView](https://github.com/rutikwankhade/CoverView)
 
+The most significant changes are:
 
-</p>
+- Refactored everything into Typescript
+- Revamped the UI
+- Fixed bugs and strange behaviour
+- Added some crude async support for loading data
+- Improved UX
+- Added more icons and the ability to change the icon set
+- Added more granular color control
+- Added real theme randomization and reset
+- Moved from Create React App to Vite
+- Removed Unsplash features and reduced dependency on third party resources
+- Simplified themes and structure
+- Left only the editor page
+- Performance and bundle size optimizations
+- Refactored pickers to not be hard-wired to the editor html
 
-
-
-
-<img src="https://user-images.githubusercontent.com/47467468/175771056-bf7fa9a0-801b-4887-80b5-169735923d64.png" height="auto" width="800px"  margin="20px">
-
-
-
- 
-
-
-## ⚡ Features
-- 🚀 super fast and easy to use
-- 🌈 4 different themes, multiple fonts
-- 🌠 100+ dev icons with option to upload custom icon
-- ✨ 15+ different background patterns
-- 💾 Cover size based on blogging platform (i.e hashnode and dev)
-
-## 👩‍💻 Developing
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-
+## Build the app locally
 
 ```shell
-git clone https://github.com/rutikwankhade/CoverView.git
-cd CoverView/
-npm start
+git clone https://github.com/aordano/OpenGraphCover.git
+cd OpenGraphCover/
+npm run build
 ```
-
-
-## 👇 Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-
-1. Fork it (<https://github.com/rutikwankhade/CoverView/fork>)
-2. Create your feature branch (`git checkout -b feature/fooBar`)
-3. Commit your changes (`git commit -am 'Add some fooBar'`)
-4. Push to the branch (`git push origin feature/fooBar`)
-5. Create a new Pull Request
-
-
-## 🙏 Acknowledgments
-- [react-component-export-image](https://www.npmjs.com/package/react-component-export-image)
-- [Hero Patterns](https://www.heropatterns.com/)
-- [Devicons](https://github.com/devicons/devicon)
-
-Don't forget to leave a ⭐ if you found this useful.
-
-
