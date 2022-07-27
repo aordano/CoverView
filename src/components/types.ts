@@ -13,30 +13,34 @@ export interface ISelectOption {
 }
 
 export interface ISettings {
+    // Inputs
     title: string;
+    author: string;
+
+    // Colors
     backgroundColor: HexColor;
     frameColor: HexColor;
     iconColor: HexColor;
-    pattern: string;
-    author: string;
-    selectedIcon: { label: string; value: string };
-    iconProviders: { label: string; value: string }[];
-    selectedProvider: string;
-    providerList?: { label: string; value: string }[];
-    font: string;
-    theme: string;
+
+    // Options
+    selectedProvider: ISelectOption;
+    font: ISelectOption;
+    platform: ISelectOption;
+    selectedIcon: ISelectOption;
+    pattern: ISelectOption;
+    theme: ISelectOption;
     customIcon?: string;
-    platform: string;
+
+    // Status
     loading: boolean;
-}
 
-export type TThemeGetter = (
-    theme: IColorTheme,
-    pattern: ISettings["pattern"]
-) => void;
-
-export interface IRandomThemeProps {
-    onThemeChange: TThemeGetter;
+    // Option Sources
+    iconsList?: ISelectOption[];
+    patternsList?: ISelectOption[];
+    platformsList?: ISelectOption[];
+    fontsList?: ISelectOption[];
+    themesList?: ISelectOption[];
+    providersList?: ISelectOption[];
 }
 
 export type IEditorProps = {

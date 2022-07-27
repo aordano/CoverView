@@ -129,8 +129,14 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
             ] ?? { label: "", value: "" },
         });
     };
+
+    formatSelectLabel = ({ label }: Types.ISelectOption) => (
+        <div className="m-0 p-0 text-primary-content">{label}</div>
+    );
+
     handleReset = () => {
         this.setState(this.props.settings);
+        this.initStuff();
     };
 
     handleCustomIconLoad = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -177,9 +183,9 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
             loading: true,
         });
 
-        if (this.state.providerList) {
+        if (this.state.iconsList) {
             this.setState({
-                providerList: undefined,
+                iconsList: undefined,
             });
         }
 
@@ -187,7 +193,7 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
             .then((list) => {
                 this.setState({
                     loading: false,
-                    providerList: list ?? [],
+                    iconsList: list ?? [],
                     selectedIcon: {
                         label: (list ?? [])[0].label,
                         value: (list ?? [])[0].value,
@@ -365,7 +371,7 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
                                     })
                                 }
                                 isSearchable={true}
-                                options={this.state.providerList}
+                                options={this.state.iconsList}
                                 theme={(theme) => ({
                                     ...theme,
 
@@ -377,7 +383,8 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
                                         primary25: "hsl(var(--b2))",
                                     },
                                 })}
-                                formatOptionLabel={this.formatIconLabel}
+                                menuPortalTarget={document.body}
+                                formatOptionLabel={this.formatSelectLabel}
                                 className="weird-selector input text-l border-0"
                             />
                         </div>
@@ -559,7 +566,7 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
                                         strokeWidth="1.75"
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
-                                        className="feather feather-rotate-ccw opacity-60 m-auto"
+                                        className="opacity-60 m-auto"
                                     >
                                         <polyline points="1 4 1 10 7 10"></polyline>
                                         <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
