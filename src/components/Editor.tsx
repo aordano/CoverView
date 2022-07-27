@@ -2,13 +2,68 @@ import React from "react";
 import CoverImage from "./CoverImage";
 import ComponentToImg from "./ComponentToImg";
 import Select from "react-select";
-import RandomTheme from "./RandomTheme";
 import "./Editor.css";
 import * as Types from "./types";
 import * as Util from "./util";
+import chroma from "chroma-js";
 
 class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
     state = this.props.settings;
+    getRandomTheme = () => {
+        const baseColor = chroma.random();
+        const contrastColorRaw = baseColor.lch().map((value, index, color) => {
+            switch (index) {
+                case 0: {
+                    const lightness = value;
+                    let reference = "white";
+
+                    if (lightness > 127) {
+                        reference = "black";
+                    } else {
+                    }
+
+                    const contrast = chroma.contrast(
+                        chroma.lch(color[0], color[1], color[2]),
+                        reference
+                    );
+
+                    if (contrast > 4.5) {
+                        return lightness;
+                    } else {
+                        const correctedLightness =
+                            reference === "white"
+                                ? lightness - (255 - lightness) / 3
+                                : lightness + (255 - lightness) / 3;
+                        return correctedLightness;
+                    }
+                }
+                case 1: {
+                    return value;
+                }
+                case 2: {
+                    return Math.abs(Math.trunc(value) - 255 / 3);
+                }
+            }
+            return value;
+        });
+        const contrastColor = chroma.lch(
+            contrastColorRaw[0],
+            contrastColorRaw[1],
+            contrastColorRaw[2]
+        );
+        const colors = chroma
+            .scale([baseColor, contrastColor])
+            .mode("lab")
+            .colors(3);
+        this.setState({
+            backgroundColor: colors[0],
+            frameColor: colors[2],
+            iconColor: colors[1],
+            pattern: this.state.patternsList?.[
+                Math.round(Math.random() * this.state.patternsList.length)
+            ] ?? { label: "", value: "" },
+        });
+    };
     handleReset = () => {
         this.setState(this.props.settings);
     };
@@ -82,31 +137,16 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
             });
     };
 
-    componentDidMount() {
-        this.handleProviderIconListLoad(this.state.selectedProvider);
-    }
-
     handleCustomIconReset = () => {
         this.setState({
             customIcon: undefined,
         });
     };
 
-    getRandomTheme: Types.TThemeGetter = (theme, Pattern) => {
-        this.setState({
-            backgroundColor: theme.bgColor,
-            frameColor: theme.bdColor,
-            pattern: Pattern,
-        });
-    };
-
-    formatIconLabel = ({ value, label }: { value: string; label: string }) => (
-        <div className="m-0 p-0 text-primary-content">{label}</div>
-    );
-
-    formatIconProviderLabel = ({ label }: { label: string }) => (
-        <div className="m-0 p-0 text-primary-content">{label}</div>
-    );
+    componentDidMount() {
+        this.handleProviderIconListLoad(this.state.selectedProvider);
+        this.initStuff();
+    }
 
     render() {
         return (
@@ -387,9 +427,28 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
                             </span>
 
                             <div className="items-center justify-center flex flex-row">
-                                <RandomTheme
-                                    onThemeChange={this.getRandomTheme}
-                                />
+                                <button
+                                    className="transition-all duration-300 btn bg-base-100 border-0 rounded-2 w-[45px] h-[45px] mx-1 hover:-translate-y-[1px] p-2 cursor-pointer"
+                                    onClick={this.getRandomTheme}
+                                >
+                                    <svg
+                                        width="1.75em"
+                                        height="1.75em"
+                                        viewBox="0 0 16 16"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        fill="currentColor"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="opacity-60 m-auto"
+                                    >
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.624 9.624 0 0 0 7.556 8a9.624 9.624 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.595 10.595 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.624 9.624 0 0 0 6.444 8a9.624 9.624 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1-.5-.5z"
+                                        />
+                                        <path d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z" />
+                                    </svg>
+                                </button>
                                 <button
                                     className="transition-all duration-300 btn bg-base-100 border-0 rounded-2 w-[45px] h-[45px] mx-1 hover:-translate-y-[1px] p-2 cursor-pointer"
                                     onClick={this.handleReset}
