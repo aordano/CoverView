@@ -7,11 +7,8 @@ const ModernTheme = ({ settings }: { settings: Types.ISettings }) => {
         title,
         backgroundColor,
         frameColor,
-        iconColor,
         pattern,
         author,
-        selectedIcon,
-        selectedProvider,
         font,
         customIcon,
         platform,
@@ -37,11 +34,7 @@ const ModernTheme = ({ settings }: { settings: Types.ISettings }) => {
                         </div>
                     ) : (
                         <div className=" rounded-full p-6 w-32 h-32 bg-white mx-auto items-center justify-center flex">
-                            <Util.DynamicIcon
-                                icon={`${selectedProvider.value}/${selectedIcon.value}`}
-                                size="5em"
-                                color={iconColor}
-                            />
+                            <Util.Icon settings={settings} />
                         </div>
                     )}
 

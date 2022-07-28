@@ -1,6 +1,7 @@
 import React from "react";
 import * as Types from "./types";
 import Editor from "./Editor";
+import { DiHaskell } from "react-icons/di";
 
 const defaultSettings: Types.ISettings = {
     title: "This is a placeholder quite long, really",
@@ -15,6 +16,7 @@ const defaultSettings: Types.ISettings = {
     theme: { label: "Modern", value: "modern" },
     platform: { label: "Hashnode", value: "hashnode" },
     loading: false,
+    icon: DiHaskell,
 };
 
 const App = () => {

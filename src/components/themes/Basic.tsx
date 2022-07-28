@@ -7,11 +7,8 @@ const BasicTheme = ({ settings }: { settings: Types.ISettings }) => {
         title,
         backgroundColor,
         frameColor,
-        iconColor,
         pattern,
         author,
-        selectedIcon,
-        selectedProvider,
         font,
         customIcon,
         platform,
@@ -45,11 +42,7 @@ const BasicTheme = ({ settings }: { settings: Types.ISettings }) => {
                             </div>
                         ) : (
                             <div className="rounded-full bg-white mr-auto ml-2 items-center justify-center flex">
-                                <Util.DynamicIcon
-                                    icon={`${selectedProvider.value}/${selectedIcon.value}`}
-                                    size="5em"
-                                    color={iconColor}
-                                />
+                                <Util.Icon settings={settings} />
                             </div>
                         )}
 

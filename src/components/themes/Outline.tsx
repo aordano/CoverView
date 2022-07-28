@@ -6,11 +6,8 @@ const OutlineTheme = ({ settings }: { settings: Types.ISettings }) => {
         title,
         backgroundColor,
         frameColor,
-        iconColor,
         pattern,
         author,
-        selectedIcon,
-        selectedProvider,
         font,
         customIcon,
         platform,
@@ -43,11 +40,7 @@ const OutlineTheme = ({ settings }: { settings: Types.ISettings }) => {
                         </div>
                     ) : (
                         <div className="mr-auto ml-2 items-center justify-center flex">
-                            <Util.DynamicIcon
-                                icon={`${selectedProvider.value}/${selectedIcon.value}`}
-                                size="80px"
-                                color={iconColor}
-                            />
+                            <Util.Icon settings={settings} />
                         </div>
                     )}
                     <h2 className="text-xl ml-auto mr-2 font-semibold">

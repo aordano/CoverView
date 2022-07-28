@@ -1,6 +1,5 @@
 import React from "react";
 import { IconContext } from "react-icons";
-import loadable from "@loadable/component";
 import * as Types from "./types";
 import chroma from "chroma-js";
 
@@ -15,34 +14,14 @@ export function getBase64(file: File): Promise<string> {
     });
 }
 
-export const DynamicIcon: React.FC<Types.IReactIconProps> = ({ ...props }) => {
-    const [provider, iconName] = props.icon.split("/");
-
-    if (!provider || !iconName) return <div>Could Not Find Icon</div>;
-
-    if (iconName === "[custom]") {
-        return <React.Fragment></React.Fragment>;
-    }
-
-    const lib = provider.toLowerCase();
-    const Icon = loadable(() => import(`./icon/${lib}.ts`), {
-        resolveComponent: (el: JSX.Element) =>
-            el[iconName as keyof JSX.Element],
-    });
-
-    const value: IconContext = {
-        color: props.color,
-        size: props.size,
-        className: props.className,
-        style: props.style,
-        attr: props.attr,
+export const Icon: React.FC<{ settings: Types.ISettings }> = ({ ...props }) => {
+    const iconProps: Types.IReactIconProps = {
+        icon: props.settings.selectedIcon.value,
+        size: "5em",
+        color: props.settings.iconColor,
     };
 
-    return (
-        <IconContext.Provider value={value}>
-            <Icon />
-        </IconContext.Provider>
-    );
+    return <i>{props.settings.icon(iconProps)}</i>;
 };
 
 export const DynamicIconList = (

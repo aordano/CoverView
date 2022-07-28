@@ -110,10 +110,11 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
                 this.setState({
                     loading: false,
                     iconsList: list ?? [],
-                    selectedIcon: {
-                        label: (list ?? [])[0].label,
-                        value: (list ?? [])[0].value,
-                    },
+                });
+
+                this.handleProviderIconLoad({
+                    label: (list ?? [])[0].label,
+                    value: (list ?? [])[0].value,
                 });
             })
             .catch((err) => {
@@ -122,6 +123,31 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
                     loading: false,
                 });
             });
+    };
+
+    handleProviderIconLoad = (icon: Types.ISelectOption) => {
+        this.setState({
+            selectedIcon: icon,
+        });
+
+        if (icon.value === "[custom]") {
+            // this.setState({
+            //     icon: React.createElement(
+            //         "i",
+            //         { color: this.state.iconColor },
+            //         <React.Fragment></React.Fragment>
+            //     ),
+            // });
+            return;
+        }
+
+        import(`./icon/${this.state.selectedProvider.value}.ts`).then(
+            (module) => {
+                this.setState({
+                    icon: module[icon.value],
+                });
+            }
+        );
     };
 
     handleCustomIconReset = () => {
@@ -275,16 +301,12 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
                             <Select
                                 value={this.state.selectedIcon}
                                 onChange={(selectedOption) =>
-                                    this.setState({
-                                        selectedIcon: {
-                                            label:
-                                                selectedOption?.label ??
-                                                "Error",
-                                            value:
-                                                selectedOption?.value ??
-                                                "Error",
-                                        },
-                                    })
+                                    this.handleProviderIconLoad(
+                                        selectedOption ?? {
+                                            value: "Error",
+                                            label: "Error",
+                                        }
+                                    )
                                 }
                                 isSearchable={true}
                                 options={this.state.iconsList}

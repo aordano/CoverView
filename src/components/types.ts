@@ -1,4 +1,5 @@
-import { CSSProperties, SVGAttributes } from "react";
+import React, { CSSProperties, SVGAttributes } from "react";
+import { IconType } from "react-icons";
 
 export interface IColorTheme {
     bgColor: string;
@@ -30,6 +31,7 @@ export interface ISettings {
     pattern: ISelectOption;
     theme: ISelectOption;
     customIcon?: string;
+    icon: IconType;
 
     // Status
     loading: boolean;
