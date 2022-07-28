@@ -51,8 +51,9 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
     };
 
     handleReset = () => {
-        this.setState(this.props.settings);
-        this.initStuff();
+        this.setState(this.props.settings, () => {
+            this.initStuff();
+        });
     };
 
     handleCustomIconLoad = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -107,15 +108,18 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
 
         Util.DynamicIconList(provider.value)
             .then((list) => {
-                this.setState({
-                    loading: false,
-                    iconsList: list ?? [],
-                });
-
-                this.handleProviderIconLoad({
-                    label: (list ?? [])[0].label,
-                    value: (list ?? [])[0].value,
-                });
+                this.setState(
+                    {
+                        loading: false,
+                        iconsList: list ?? [],
+                    },
+                    () => {
+                        this.handleProviderIconLoad({
+                            label: (list ?? [])[0].label,
+                            value: (list ?? [])[0].value,
+                        });
+                    }
+                );
             })
             .catch((err) => {
                 console.error("Loading the data failed.");

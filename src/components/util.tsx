@@ -21,7 +21,11 @@ export const Icon: React.FC<{ settings: Types.ISettings }> = ({ ...props }) => {
         color: props.settings.iconColor,
     };
 
-    return <i>{props.settings.icon(iconProps)}</i>;
+    return props.settings.icon === undefined ? (
+        <p>Error :(</p>
+    ) : (
+        <i>{props.settings.icon(iconProps)}</i>
+    );
 };
 
 export const DynamicIconList = (
