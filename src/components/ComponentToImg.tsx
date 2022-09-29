@@ -1,12 +1,18 @@
 import React from "react";
 import { exportComponentAsPNG } from "react-component-export-image";
+import { ISettings } from "./types";
 
-const ComponentToImg = (props: { children: React.ReactNode }) => {
+const ComponentToImg = (props: {
+    children: React.ReactNode;
+    settings: ISettings;
+}) => {
     const componentRef = React.createRef<any>(); // TODO give a type
 
     // download image and trigger download on unsplash api
     const downloadImage = () => {
-        exportComponentAsPNG(componentRef, { fileName: "cover" }); // TODO replace for the given blogpost name
+        exportComponentAsPNG(componentRef, {
+            fileName: `OCG - ${props.settings.title}`,
+        });
     };
 
     return (

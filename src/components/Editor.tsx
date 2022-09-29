@@ -551,7 +551,7 @@ class Editor extends React.Component<Types.IEditorProps, Types.ISettings> {
                 </div>
 
                 <div className="flex flex-col p-4 justify-center place-items-center h-full">
-                    <ComponentToImg>
+                    <ComponentToImg settings={this.state}>
                         <CoverImage {...this.state} />
                     </ComponentToImg>
                 </div>
