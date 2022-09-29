@@ -6,9 +6,8 @@ const ComponentToImg = (props: {
     children: React.ReactNode;
     settings: ISettings;
 }) => {
-    const componentRef = React.createRef<any>(); // TODO give a type
+    const componentRef = React.createRef<HTMLDivElement>();
 
-    // download image and trigger download on unsplash api
     const downloadImage = () => {
         exportComponentAsPNG(componentRef, {
             fileName: `OCG - ${props.settings.title}`,
