@@ -18,7 +18,10 @@ const BasicTheme = ({ settings }: { settings: Types.ISettings }) => {
         <div className="p-4 border" style={{ backgroundColor: frameColor }}>
             <div
                 className={`overflow-y-hidden flex  text-gray-800 items-center ${pattern.value} ${platform.value} `}
-                style={{ backgroundColor: backgroundColor }}
+                style={{
+                    backgroundColor: backgroundColor,
+                    backgroundBlendMode: "difference",
+                }}
             >
                 <div
                     className={`${font.value} bg-white md:w-10/12  m-auto flex flex-col pt-12 rounded-xl`}

@@ -17,7 +17,10 @@ const OutlineTheme = ({ settings }: { settings: Types.ISettings }) => {
         <div className="p-4 border" style={{ backgroundColor: frameColor }}>
             <div
                 className={`overflow-y-hidden rounded flex flex-col text-gray-800 items-center border-4 border-gray-800 ${pattern.value} ${platform.value} `}
-                style={{ backgroundColor: backgroundColor }}
+                style={{
+                    backgroundColor: backgroundColor,
+                    backgroundBlendMode: "difference",
+                }}
             >
                 <div
                     className={`${font.value} bg-white rounded-2xl md:w-10/12 m-auto flex flex-col p-12 `}

@@ -22,7 +22,10 @@ const ModernTheme = ({ settings }: { settings: Types.ISettings }) => {
             <div className=" overflow-y-hidden w-full flex  items-center">
                 <div
                     className={`  h-full w-full rounded-xl  p-4 text-gray-800 flex  items-center ${pattern.value} ${platform.value}`}
-                    style={{ backgroundColor: backgroundColor }}
+                    style={{
+                        backgroundColor: backgroundColor,
+                        backgroundBlendMode: "difference",
+                    }}
                 >
                     {customIcon ? (
                         <div className="  mx-auto items-center justify-center flex">
