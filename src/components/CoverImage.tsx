@@ -3,6 +3,7 @@ import "../assets/css/patterns.css";
 import ModernTheme from "./themes/Modern";
 import BasicTheme from "./themes/Basic";
 import OutlineTheme from "./themes/Outline";
+import ChoccyTheme from "./themes/Choccy";
 import * as Types from "./types";
 
 const CoverImage = (props: Types.ISettings) => {
@@ -16,6 +17,8 @@ const CoverImage = (props: Types.ISettings) => {
                 return <ModernTheme settings={props} />;
             case "outline":
                 return <OutlineTheme settings={props} />;
+            case "choccy":
+                return <ChoccyTheme settings={props} />;
 
             default:
                 return <ModernTheme settings={props} />;
